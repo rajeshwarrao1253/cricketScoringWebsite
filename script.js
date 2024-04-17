@@ -221,6 +221,7 @@ document.addEventListener('DOMContentLoaded', function() {
       let ballcount= false;
       let count=0;
       let extracount=false;
+      let extralegbye=false;
       let out=false;
        runsInOver = runsInOver + runs;
        let runsPerBallBlower=runs;
@@ -250,6 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (checkbox.checked && (checkbox.value === 'Byes' || checkbox.value === 'Leg Byes')) {
           extras += runs; // Update extras
           ballcount=true;
+          extralegbye=true;
     
           
         }
@@ -289,6 +291,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 playerstrick=batsman;
                 if(extracount){
                     batsmen[name].addRuns(runs-1)
+                }
+                else if (extralegbye){
+                    batsmen[name].addRuns(0) 
                 }
                 else{
                     batsmen[name].addRuns(runs) 
