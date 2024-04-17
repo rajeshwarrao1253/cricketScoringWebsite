@@ -163,144 +163,157 @@ input[type="text"], select {
 </style>
 </head>
 <body>
+<div id = "closematch">
+    <div class="scoreboard">
+        <h1 id="fisrtInningsDetails"></h1>
+        <h4 id="matchdetails" style="text-align: center;"></h4>
+      <h2>
+        <span id="totalScore">0</span>-
+        <span id="wickets">0</span> 
+        (<span id="overs">0</span>.<span id="balls">0</span>)
+        CRR: <span id="crr">0.00</span>
+      </h2>
+      
+        <table>
+          <thead>
+            <tr>
+              <th>Batsman</th>
+              <th>R</th>
+              <th>B</th>
+              <th>4s</th>
+              <th>6s</th>
+              <th>SR</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="onStrick">Dhoni</td>
+              <td id="onRuns">0</td>
+              <td id="onballs">0</td>
+              <td id="onfours">0</td>
+              <td id="onsixes">0</td>
+              <td id="onStrickrate">0.00</td>
+            </tr>
+            <tr>
+              <td id="onNonStrick">Mahesh</td>
+              <td id="onNonRuns">0</td>
+              <td id="onNonballs">0</td>
+              <td id="onNonfours">0</td>
+              <td id="onNonsixes">0</td>
+              <td id="onNonStrickrate">0.00</td>
+            </tr>
+          </tbody>
+      
+          <tfoot>
+            <tr>
+              <th>Bowler</th>
+              <th>O</th>
+              <th>M</th>
+              <th>R</th>
+              <th>W</th>
+              <th>ER</th>
+            </tr>
+            <tr>
+              <td id="isBlowing">Sandeep</td>
+              <td ><span id="bovers">0</span>.<span id="bballs">0</span></td>
+              <td id="maiden">0</td>
+              <td id="bruns">0</td>
+              <td id="bwickets">0</td>
+              <td id="economy">0.00</td>
+            </tr>
+          </tfoot>
+        </table>
+        <div>
+       
+          <h3>Extras: <span id="extras">0</span></h3>
+        </div>
+      
+        <div id="newBatsmanForm" style="display: none;">
+          <h2>Out Batsman</h2>
+      
+      
+      
+          <input type="text" id="outBatsmanName" placeholder="Enter new batsman name">
+          <h2>New Batsman</h2>
+          <input type="text" id="newBatsmanName" placeholder="Enter new batsman name">
+          <button onclick="submitNewBatsman()">Submit</button>
+      </div>
+      
+      
+      
+      <div id="blowerForm" style="display: none;">
+          <h2>Select Blower Type</h2>
+          <form id="blowerSelectionForm">
+           
+              <label>
+                  <input type="radio" name="blowerType" value="new" checked> New Blower
+              </label>
+              <label>
+                  <input type="radio" name="blowerType" value="existing" > Existing Blower
+              </label>
+              
+              <div id="newBlowerEntry" style="margin-top: 20px; display: none;">
+                  <label for="newBlowerName">Enter New Blower Name:</label>
+                  <input type="text" id="newBlowerName">
+              </div>
+      
+              <div id="existingBlowerSelection" style="margin-top: 20px;">
+                  <label for="existingBlowers">Choose a Blower:</label>
+                  <select id="existingBlowers">
+                      <!-- Blower names will be populated here -->
+                  </select>
+              </div>
+      
+              <div class="button-group">
+                  <button type="submit" style="margin-top: 20px;" >Submit</button>
+              </div>
+              
+          </form>
+      </div>
+      
+      
+      
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="cricket" value="Wide"> Wide</label>
+          <label><input type="checkbox" name="cricket" value="No Ball"> No Ball</label>
+          <label><input type="checkbox" name="cricket" value="Byes"> Byes</label>
+          <label><input type="checkbox" name="cricket" value="Leg Byes"> Leg Byes</label>
+          <label><input type="checkbox" name="cricket" value="Wicket"> Wicket</label>
+          <label><input type="checkbox" name="cricket" value="Runs"> Runs</label>
+      </div>
+      
+        <!-- Continue from the checkboxes -->
+       
+      <h2  style="text-align: center;">Select runs for each Ball</h2>
+        <div class="run-buttons">
+          <div class="run-button">0</div>
+          <div class="run-button">1</div>
+          <div class="run-button">2</div>
+          <div class="run-button">3</div>
+          <div class="run-button">4</div>
+          <div class="run-button">5</div>
+          <div class="run-button">6</div>
+        </div>
+      
+      
+      </div>
 
-<div class="scoreboard">
-  <h1 id="fisrtInningsDetails"></h1>
-  <h4 id="matchdetails" style="text-align: center;"></h4>
-<h2>
-  <span id="totalScore">0</span>-
-  <span id="wickets">0</span> 
-  (<span id="overs">0</span>.<span id="balls">0</span>)
-  CRR: <span id="crr">0.00</span>
-</h2>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Batsman</th>
-        <th>R</th>
-        <th>B</th>
-        <th>4s</th>
-        <th>6s</th>
-        <th>SR</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td id="onStrick">Dhoni</td>
-        <td id="onRuns">0</td>
-        <td id="onballs">0</td>
-        <td id="onfours">0</td>
-        <td id="onsixes">0</td>
-        <td id="onStrickrate">0.00</td>
-      </tr>
-      <tr>
-        <td id="onNonStrick">Mahesh</td>
-        <td id="onNonRuns">0</td>
-        <td id="onNonballs">0</td>
-        <td id="onNonfours">0</td>
-        <td id="onNonsixes">0</td>
-        <td id="onNonStrickrate">0.00</td>
-      </tr>
-    </tbody>
-
-    <tfoot>
-      <tr>
-        <th>Bowler</th>
-        <th>O</th>
-        <th>M</th>
-        <th>R</th>
-        <th>W</th>
-        <th>ER</th>
-      </tr>
-      <tr>
-        <td id="isBlowing">Sandeep</td>
-        <td ><span id="bovers">0</span>.<span id="bballs">0</span></td>
-        <td id="maiden">0</td>
-        <td id="bruns">0</td>
-        <td id="bwickets">0</td>
-        <td id="economy">0.00</td>
-      </tr>
-    </tfoot>
-  </table>
-  <div>
- 
-    <h3>Extras: <span id="extras">0</span></h3>
-  </div>
-
-  <div id="newBatsmanForm" style="display: none;">
-    <h2>Out Batsman</h2>
-    <input type="text" id="outBatsmanName" placeholder="Enter new batsman name">
-    <h2>New Batsman</h2>
-    <input type="text" id="newBatsmanName" placeholder="Enter new batsman name">
-    <button onclick="submitNewBatsman()">Submit</button>
 </div>
 
 
 
-<div id="blowerForm" style="display: none;">
-    <h2>Select Blower Type</h2>
-    <form id="blowerSelectionForm">
-     
-        <label>
-            <input type="radio" name="blowerType" value="new" checked> New Blower
-        </label>
-        <label>
-            <input type="radio" name="blowerType" value="existing" > Existing Blower
-        </label>
-        
-        <div id="newBlowerEntry" style="margin-top: 20px; display: none;">
-            <label for="newBlowerName">Enter New Blower Name:</label>
-            <input type="text" id="newBlowerName">
+<div class="button-group">
+    <div class="scoreboard">
+        <button class="button" onclick="addswap()">Swap Batsman</button>
+        <button class="button" onclick="displayScorecard()">Scorecard</button>
+        <button class="button" onclick="InningsCompleted()">Innings completed</button>
+        <button class="button" onclick="MatchCompleted('match completed')">Match completed</button>
+        <h2 id="matchSummary"  style="text-align: center;" ></h2>
+        <div id="scorecard" style="margin-top: 20px;">
+            <!-- Scorecard information will be displayed here -->
         </div>
-
-        <div id="existingBlowerSelection" style="margin-top: 20px;">
-            <label for="existingBlowers">Choose a Blower:</label>
-            <select id="existingBlowers">
-                <!-- Blower names will be populated here -->
-            </select>
-        </div>
-
-        <div class="button-group">
-            <button type="submit" style="margin-top: 20px;" >Submit</button>
-        </div>
-        
-    </form>
-</div>
-
-
-
-  <div class="checkbox-group">
-    <label><input type="checkbox" name="cricket" value="Wide"> Wide</label>
-    <label><input type="checkbox" name="cricket" value="No Ball"> No Ball</label>
-    <label><input type="checkbox" name="cricket" value="Byes"> Byes</label>
-    <label><input type="checkbox" name="cricket" value="Leg Byes"> Leg Byes</label>
-    <label><input type="checkbox" name="cricket" value="Wicket"> Wicket</label>
-    <label><input type="checkbox" name="cricket" value="Runs"> Runs</label>
-</div>
-
-  <!-- Continue from the checkboxes -->
- 
-<h2  style="text-align: center;">Select runs for each Ball</h2>
-  <div class="run-buttons">
-    <div class="run-button">0</div>
-    <div class="run-button">1</div>
-    <div class="run-button">2</div>
-    <div class="run-button">3</div>
-    <div class="run-button">4</div>
-    <div class="run-button">5</div>
-    <div class="run-button">6</div>
-  </div>
-
-  <div class="button-group">
-    <button class="button" onclick="addswap()">Swap Batsman</button>
-    <button class="button" onclick="displayScorecard()">Scorecard</button>
-    <button class="button" onclick="InningsCompleted()">Innings completed</button>
-    <button class="button" onclick="MatchCompleted()">Match completed</button>
-    <div id="scorecard" style="margin-top: 20px;">
-        <!-- Scorecard information will be displayed here -->
     </div>
-  </div>
+
 </div>
 <script src="script.js"></script>
 </body>
