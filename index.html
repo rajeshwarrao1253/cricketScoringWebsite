@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cricket Match Setup</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #abcdef, #123456);
+  }
+  .container {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 300px;
+    margin: auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  .button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .button:hover {
+    background-color: #45a049;
+  }
+ 
+  .form-group {
+    margin-bottom: 20px;
+
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .form-group input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 15px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  .form-group input[type="radio"] {
+    margin-right: 10px;
+  }
+  .radio-group {
+    display: flex; /* Aligns the radio buttons inline */
+    align-items: center; /* Aligns items vertically */
+  }
+  .radio-group input[type="radio"] {
+    margin-right: 5px; /* Space after radio button */
+  }
+
+  .radio-group label {
+    margin-right: 20px; /* Space between label and next radio button */
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <form  action="playerSelection.html">
+    <div class="form-group">
+      <label for="hostTeam">Host Team</label>
+      <input type="text" id="hostTeam" name="hostTeam" >
+    </div>
+    <div class="form-group">
+      <label for="visitorTeam">Visitor Team</label>
+      <input type="text" id="visitorTeam" name="visitorTeam">
+    </div>
+    <div class="form-group">
+      <label>Toss won by?</label>
+      <div class="radio-group">
+      <input type="radio" id="host" name="tossWinner"><label for="host">Host Team</label>
+      <input type="radio" id="visitor" name="tossWinner"><label for="visitor">Visitor Team</label>
+    </div>
+  </div>
+    <div class="form-group rad">
+      <label>Opted to?</label>
+      <div class="radio-group">
+      <input type="radio" id="bat" name="opted"><label for="bat">Bat</label>
+      <input type="radio" id="bowl" name="opted"><label for="bowl">Bowl</label>
+    </div>
+  </div> 
+    <div class="form-group">
+      <label for="overs">Overs?</label>
+      <input type="text" id="overs" name="overs" value="16">
+    </div>
+    <button class="button" onclick="startMatch()">Continue</button>
+    
+  </div>
+
+  </form>
+  
+
+<script src="script.js"></script>
+
+</body>
+</html>

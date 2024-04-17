@@ -1,0 +1,307 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cricket Scoring Dashboard</title>
+<style>
+    
+    .run-button {
+    display: inline-block; /* Align buttons in a row */
+    width: 50px; /* Set a fixed width */
+    height: 50px; /* Set a fixed height */
+    background-color: #f2f2f2; /* Light grey background */
+    color: black; /* Text color */
+    line-height: 50px; /* Center text vertically */
+    text-align: center; /* Center text horizontally */
+    margin: 10px; /* Add some space around each button */
+    cursor: pointer; /* Change mouse cursor to indicate clickable items */
+    border-radius: 50%; /* Circular border */
+    border: 2px solid #000; /* Black border */
+    user-select: none; /* Prevent text selection */
+  }
+  
+  /* Optional: Add a hover effect */
+  .run-button:hover {
+    background-color: #ddd; /* Darker grey background on hover */
+  }
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #abcdef, #123456);
+    padding: 20px;
+  }
+  .scoreboard {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 500px;
+    margin: auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  .scoreboard h1, .scoreboard h2 {
+    text-align: center;
+  }
+  .scoreboard table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  .scoreboard table, .scoreboard th, .scoreboard td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+  }
+  .scoreboard th {
+    background-color: #f2f2f2;
+  }
+  .button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .button:hover {
+    background-color: #45a049;
+  }
+  .run-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .run-button {
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    cursor: pointer;
+  }
+  .run-button:hover {
+    background-color: #ddd;
+  }
+  .checkbox-group {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+  }
+  .checkbox-group label {
+    display: flex;
+    align-items: center;
+  }
+  #newBatsmanForm {
+        background-color: #f2f2f2; /* Light grey background */
+        padding: 20px; /* Padding around the form content */
+        border-radius: 5px; /* Rounded corners */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+        width: 300px; /* Set a specific width */
+        margin: auto; /* Center the form horizontally */
+    }
+
+    #newBatsmanForm h2 {
+        color: #333; /* Dark grey color for the headings */
+        font-family: Arial, sans-serif; /* Font family */
+        margin-bottom: 10px; /* Space below the headings */
+    }
+
+    #newBatsmanForm input[type="text"] {
+        width: calc(100% - 20px); /* Full width minus padding */
+        padding: 10px; /* Padding inside the text boxes */
+        margin-bottom: 20px; /* Space between the inputs and the button */
+        border: 1px solid #ccc; /* Light grey border */
+        border-radius: 4px; /* Rounded corners for the inputs */
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    }
+
+    #newBatsmanForm button {
+        width: 100%; /* Full width */
+        padding: 10px; /* Padding for the button */
+        background-color: #4CAF50; /* Green background */
+        color: white; /* White text */
+        border: none; /* No border */
+        border-radius: 4px; /* Rounded corners */
+        cursor: pointer; /* Pointer cursor on hover */
+        font-size: 16px; /* Text size */
+    }
+
+    #newBatsmanForm button:hover {
+        background-color: #45a049; /* Slightly darker green on hover */
+    }
+/* styles.css */
+body {
+  font-family: Arial, sans-serif;
+}
+
+#blowerForm {
+  width: 300px;
+  margin: 50px auto;
+  padding: 20px;
+  box-shadow: 0 0 10px #ccc;
+  border-radius: 8px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="text"], select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="scoreboard">
+  <h1 id="fisrtInningsDetails"></h1>
+  <h4 id="matchdetails" style="text-align: center;"></h4>
+<h2>
+  <span id="totalScore">0</span>-
+  <span id="wickets">0</span> 
+  (<span id="overs">0</span>.<span id="balls">0</span>)
+  CRR: <span id="crr">0.00</span>
+</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Batsman</th>
+        <th>R</th>
+        <th>B</th>
+        <th>4s</th>
+        <th>6s</th>
+        <th>SR</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="onStrick">Dhoni</td>
+        <td id="onRuns">0</td>
+        <td id="onballs">0</td>
+        <td id="onfours">0</td>
+        <td id="onsixes">0</td>
+        <td id="onStrickrate">0.00</td>
+      </tr>
+      <tr>
+        <td id="onNonStrick">Mahesh</td>
+        <td id="onNonRuns">0</td>
+        <td id="onNonballs">0</td>
+        <td id="onNonfours">0</td>
+        <td id="onNonsixes">0</td>
+        <td id="onNonStrickrate">0.00</td>
+      </tr>
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <th>Bowler</th>
+        <th>O</th>
+        <th>M</th>
+        <th>R</th>
+        <th>W</th>
+        <th>ER</th>
+      </tr>
+      <tr>
+        <td id="isBlowing">Sandeep</td>
+        <td ><span id="bovers">0</span>.<span id="bballs">0</span></td>
+        <td id="maiden">0</td>
+        <td id="bruns">0</td>
+        <td id="bwickets">0</td>
+        <td id="economy">0.00</td>
+      </tr>
+    </tfoot>
+  </table>
+  <div>
+ 
+    <h3>Extras: <span id="extras">0</span></h3>
+  </div>
+
+  <div id="newBatsmanForm" style="display: none;">
+    <h2>Out Batsman</h2>
+    <input type="text" id="outBatsmanName" placeholder="Enter new batsman name">
+    <h2>New Batsman</h2>
+    <input type="text" id="newBatsmanName" placeholder="Enter new batsman name">
+    <button onclick="submitNewBatsman()">Submit</button>
+</div>
+
+
+
+<div id="blowerForm" style="display: none;">
+    <h2>Select Blower Type</h2>
+    <form id="blowerSelectionForm">
+     
+        <label>
+            <input type="radio" name="blowerType" value="new" checked> New Blower
+        </label>
+        <label>
+            <input type="radio" name="blowerType" value="existing" > Existing Blower
+        </label>
+        
+        <div id="newBlowerEntry" style="margin-top: 20px; display: none;">
+            <label for="newBlowerName">Enter New Blower Name:</label>
+            <input type="text" id="newBlowerName">
+        </div>
+
+        <div id="existingBlowerSelection" style="margin-top: 20px;">
+            <label for="existingBlowers">Choose a Blower:</label>
+            <select id="existingBlowers">
+                <!-- Blower names will be populated here -->
+            </select>
+        </div>
+
+        <div class="button-group">
+            <button type="submit" style="margin-top: 20px;" >Submit</button>
+        </div>
+        
+    </form>
+</div>
+
+
+
+  <div class="checkbox-group">
+    <label><input type="checkbox" name="cricket" value="Wide"> Wide</label>
+    <label><input type="checkbox" name="cricket" value="No Ball"> No Ball</label>
+    <label><input type="checkbox" name="cricket" value="Byes"> Byes</label>
+    <label><input type="checkbox" name="cricket" value="Leg Byes"> Leg Byes</label>
+    <label><input type="checkbox" name="cricket" value="Wicket"> Wicket</label>
+    <label><input type="checkbox" name="cricket" value="Runs"> Runs</label>
+</div>
+
+  <!-- Continue from the checkboxes -->
+ 
+<h2  style="text-align: center;">Select runs for each Ball</h2>
+  <div class="run-buttons">
+    <div class="run-button">0</div>
+    <div class="run-button">1</div>
+    <div class="run-button">2</div>
+    <div class="run-button">3</div>
+    <div class="run-button">4</div>
+    <div class="run-button">5</div>
+    <div class="run-button">6</div>
+  </div>
+
+  <div class="button-group">
+    <button class="button" onclick="addswap()">Swap Batsman</button>
+    <button class="button" onclick="displayScorecard()">Scorecard</button>
+    <button class="button" onclick="InningsCompleted()">Innings completed</button>
+    <button class="button" onclick="MatchCompleted()">Match completed</button>
+    <div id="scorecard" style="margin-top: 20px;">
+        <!-- Scorecard information will be displayed here -->
+    </div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

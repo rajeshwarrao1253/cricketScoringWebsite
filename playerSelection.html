@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cricket Match Setup</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    padding: 20px;
+  }
+  .form-container {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 350px;
+    margin: auto;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .form-group input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  .start-match-btn {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .start-match-btn:hover {
+    background-color: #45a049;
+  }
+</style>
+</head>
+<body>
+
+    <div class="form-container">
+        <form id="matchSetupForm" action="summary.html">
+          <div class="form-group">
+            <label for="striker">Striker</label>
+            <input type="text" id="striker" name="striker" placeholder="Player name">
+          </div>
+          <div class="form-group">
+            <label for="nonStriker">Non-striker</label>
+            <input type="text" id="nonStriker" name="nonStriker" placeholder="Player name">
+          </div>
+          <div class="form-group">
+            <label for="openingBowler">Opening bowler</label>
+            <input type="text" id="openingBowler" name="openingBowler" placeholder="Player name">
+          </div>
+          <input type="submit" class="start-match-btn" value="Start Match">
+        </form>
+      </div>
+
+
+      
+ <script src="script.js"></script>
+
+</body>
+</html>
