@@ -133,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
     firstInningsBatting=JSON.parse(localStorage.getItem('firstInningsBatting'));
     firstInningsBlowing=JSON.parse(localStorage.getItem('firstInningsBlowing'));
    var fisrtInningsScore = parseInt(localStorage.getItem('fisrtInningsScore'));
+   var fisrtInningsWickets = parseInt(localStorage.getItem('fisrtInningsWickets'));
     var totalOvers = localStorage.getItem('totalOvers');
     var hostTeam = localStorage.getItem('HostTeam');
    var visitorTeam = localStorage.getItem('VisitorTeam');
@@ -154,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var currectBalls = parseInt(document.getElementById('balls').textContent);
         var currentScore = parseInt(document.getElementById('totalScore').textContent);
          var Ballsover= currentovers*6 + currectBalls;
-         document.getElementById('matchdetails').textContent= secondBattingteam + " still need " + (fisrtInningsScore-currentScore) + " from " + ((totalovers *6)-Ballsover) + " balls.";
+         document.getElementById('matchdetails').textContent= secondBattingteam + " still need " + (fisrtInningsScore-currentScore + 1 ) + " from " + ((totalovers *6)-Ballsover) + " balls.";
     
 
 
@@ -504,19 +505,62 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
      }
-
+     var matchover = false;
      if(firstInningsBatting!=null) {
         document.getElementById('fisrtInningsDetails').textContent= secondBattingteam +" , 2st inning";
         currentovers=parseInt( document.getElementById('overs').textContent);
         currectBalls = parseInt(document.getElementById('balls').textContent);
         currentScore = parseInt(document.getElementById('totalScore').textContent);
+        currentwickets = parseInt(document.getElementById('wickets').textContent);
         Ballsover= currentovers*6 + currectBalls;
-         document.getElementById('matchdetails').textContent= secondBattingteam + " still need " + (fisrtInningsScore-currentScore) + " from " + ((totalovers *6)-Ballsover) + " balls.";
+         document.getElementById('matchdetails').textContent= secondBattingteam + " still need " + (fisrtInningsScore-currentScore + 1) + " runs from " + ((totalovers *6)-Ballsover) + " balls.";
     
+         if ((fisrtInningsScore-currentScore +1 ) <= 0 ){
+            matchover = true
+            // alert(secondBattingteam + ' won the match !!!');
+            document.getElementById('matchSummary').textContent=secondBattingteam + ' won the match !!!'
+            
+            displayScorecard();
+            document.getElementById("closematch").style.display = "none";
+        }
+        if ((currentovers == totalovers) && (fisrtInningsScore-currentScore +1) > 1 ){
+            matchover = true
+            // alert(firstBattingteam + ' won the match !!!');
+            document.getElementById('matchSummary').textContent=firstBattingteam + ' won the match !!!'
+           
+            displayScorecard();
+            document.getElementById("closematch").style.display = "none";
+        }
+        if ((currentovers == totalovers) && (fisrtInningsScore-currentScore + 1) == 1 ){
+            matchover = true
+            // alert( 'Both teams scores are equal , match tie !!!');
+            document.getElementById('matchSummary').textContent= ' Both teams scores are equal , match tie !!!'
+           
+            displayScorecard();
+            document.getElementById("closematch").style.display = "none";
+        }
+        if(currentwickets == 11){
+            matchover = true
+            // alert(firstBattingteam + ' won the match !!!');
+            document.getElementById('matchSummary').textContent=firstBattingteam + ' won the match !!!'
+
+            
+            displayScorecard()
+            document.getElementById("closematch").style.display = "none";
+        }
 
 
     }
 
+    
+    currentovers=parseInt( document.getElementById('overs').textContent);
+
+    console.log(totalovers,currentovers,currentovers == totalovers)
+    if(currentovers == totalovers && !matchover){
+ 
+        InningsCompleted();
+
+    }
 
 
    
@@ -624,16 +668,18 @@ function displayScorecard() {
   
 
     const scorecardDiv = document.getElementById('scorecard');
+    var currentScore = parseInt(document.getElementById('totalScore').textContent);
+    var currentWickets = parseInt(document.getElementById('wickets').textContent);
     scorecardDiv.innerHTML = '';  // Clear existing scorecard informatchSetupFormion
 
     // Create a table with a close button
     let table = '<div><button onclick="closeTable()" style="float: right; margin: 2px;">×</button></div>';
     if ((firstInningsBatting==null)){
 
-        table += '<div style="margin-top: 20px; margin-bottom: 10px; text-align: center; font-size: 20px; font-weight: bold;">First Innings Scorecard</div>';
+        table += `<div style="margin-top: 20px; margin-bottom: 10px; text-align: center; font-size: 20px; font-weight: bold;">First Innings Scorecard : ${currentScore} - ${currentWickets}</div>`;
     }
     else{
-        table += '<div style="margin-top: 20px; margin-bottom: 10px; text-align: center; font-size: 20px; font-weight: bold;">Second Innings Scorecard</div>';
+        table += `<div style="margin-top: 20px; margin-bottom: 10px; text-align: center; font-size: 20px; font-weight: bold;">Second Innings Scorecard : ${currentScore} - ${currentWickets}</div>`;
 
     }
 
@@ -646,7 +692,7 @@ function displayScorecard() {
 
     table += '</table>';
      
-    table += '<table border="1" style="width: 100%;"><tr><th>Blower</th><th>Overs</th><th>Maiden</th><th>Runs</th><th>Wickets</th><th>ER</th></tr>';
+    table += '<table border="1" style="width: 100%;"><tr><th>Blower</th><th>O</th><th>M</th><th>R</th><th>W</th><th>ER</th></tr>';
 
     Object.entries(blower).forEach(([name, blowing]) => {
 
@@ -658,8 +704,9 @@ function displayScorecard() {
 
 
     if (!(firstInningsBatting==null)){
-
-        table += '<div style="margin-top: 20px; margin-bottom: 10px; text-align: center; font-size: 20px; font-weight: bold;">First Innings Scorecard</div>';
+        var fisrtInningsScore = parseInt(localStorage.getItem('fisrtInningsScore'));
+        var fisrtInningsWickets = parseInt(localStorage.getItem('fisrtInningsWickets'));
+        table +=`<div style="margin-top: 20px; margin-bottom: 10px; text-align: center; font-size: 20px; font-weight: bold;">First Innings Scorecard  : ${fisrtInningsScore} - ${fisrtInningsWickets}</div>`;
         table += '<table border="1" style="width: 100%;"><tr><th>Batsman</th><th>Runs</th><th>Balls</th><th>4s</th><th>6s</th><th>SR</th></tr>';
 
         Object.entries(firstInningsBatting).forEach(([name, batsman]) => {
@@ -672,7 +719,7 @@ function displayScorecard() {
 
     if (!(firstInningsBlowing==null)){
 
-        table += '<table border="1" style="width: 100%;"><tr><th>Blower</th><th>Overs</th><th>Maiden</th><th>Runs</th><th>Wickets</th><th>ER</th></tr>';
+        table += '<table border="1" style="width: 100%;"><tr><th>Blower</th><th>O</th><th>M</th><th>R</th><th>W</th><th>ER</th></tr>';
 
         Object.entries(firstInningsBlowing).forEach(([name, blowing]) => {
            
@@ -697,7 +744,8 @@ function closeTable() {
 
 function InningsCompleted (){
     var fisrtInningsScore = parseInt(document.getElementById('totalScore').textContent);
-
+    var fisrtInningsWickets = parseInt(document.getElementById('wickets').textContent);
+    
     firstInningsBatting=batsmen;
     firstInningsBlowing=blower;
     batsmen={}
@@ -705,9 +753,14 @@ function InningsCompleted (){
     localStorage.setItem('firstInningsBatting', JSON.stringify(firstInningsBatting));
     localStorage.setItem('firstInningsBlowing', JSON.stringify(firstInningsBlowing));
     localStorage.setItem('fisrtInningsScore',fisrtInningsScore);
+    localStorage.setItem('fisrtInningsWickets',fisrtInningsWickets);
+
+    alert('innings completed ! , Click Ok to start the second innings');
+
     window.location = 'playerSelection.html';
 }
-function MatchCompleted(){
+function MatchCompleted(msg){
+  
    localStorage.clear()
     localStorage.removeItem('firstInningsBatting'); 
     localStorage.removeItem('firstInningsBlowing');
