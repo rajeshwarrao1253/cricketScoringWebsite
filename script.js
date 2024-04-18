@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let overcompleted=false;
       let ballcount= false;
-      let count=0;
+      let count=1;
       let extracount=false;
       let extralegbye=false;
       let out=false;
@@ -265,6 +265,8 @@ document.addEventListener('DOMContentLoaded', function() {
   
         checkbox.checked=false;
       });
+
+
       if ( ballcount || count == 6){
   
           if (balls<5){
@@ -279,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
       }
 
-
+      console.log(count + "duisck");
 
 
         //adding runs to player
@@ -404,7 +406,7 @@ document.addEventListener('DOMContentLoaded', function() {
           
         
         ballcount=false;
-        count=0;
+        count=1;
 
      if(out){
         document.getElementById("newBatsmanForm").style.display = "block";
